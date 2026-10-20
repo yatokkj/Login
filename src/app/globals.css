@@ -131,29 +131,32 @@
    ============================================================ */
 
 :root {
-  --liquid-base: #060a18;
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-ink: #0f172a; /* slate-900: body text on light glass (WCAG AA+) */
-  --glass-ink-muted: #475569; /* slate-600: secondary text */
-  --glass-ink-label: #334155; /* slate-700: labels */
-  --glass-accent: #0891b2; /* cyan-600 */
-  --glass-accent-soft: rgba(34, 211, 238, 0.35);
-  --glass-danger: #881337; /* red-800-ish: AA on light surfaces */
+  --liquid-base: #000000;
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-ink: #ffffff; /* pure white text for maximum legibility */
+  --glass-ink-muted: rgba(255, 255, 255, 0.72); /* secondary text */
+  --glass-ink-label: rgba(255, 255, 255, 0.9); /* labels */
+  --glass-accent: #38bdf8; /* cyan-400 */
+  --glass-accent-soft: rgba(56, 189, 248, 0.35);
+  --glass-danger: #f87171; /* red-400 */
 }
 
 body {
   background-color: var(--liquid-base);
 }
 
-/* ---------- Animated liquid background ---------- */
+/* ---------- Liquid background image scene ---------- */
 
 .liquid-scene {
   position: fixed;
   inset: 0;
   z-index: -10;
   overflow: hidden;
-  background:
-    radial-gradient(120% 120% at 20% 10%, #0b1330 0%, #060a18 45%, #03060f 100%);
+  background-color: #000000;
+  background-image: url("/background-liquid.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .liquid-blob {
@@ -271,19 +274,23 @@ body {
   position: relative;
   border-radius: 2.75rem;
   border: 1px solid var(--glass-border);
+  border-bottom: 1px solid #000000;
+  /* 98% transparent at start (2% opacity) degrading progressively into pure #000000 */
   background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.62) 0%,
-    rgba(255, 255, 255, 0.38) 48%,
-    rgba(255, 255, 255, 0.52) 100%
+    180deg,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.22) 28%,
+    rgba(0, 0, 0, 0.65) 62%,
+    rgba(0, 0, 0, 0.92) 85%,
+    #000000 100%
   );
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   backdrop-filter: blur(28px) saturate(180%);
   box-shadow:
-    0 24px 60px -12px rgba(2, 6, 23, 0.55),
-    0 8px 24px -8px rgba(2, 6, 23, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+    0 30px 70px -15px rgba(0, 0, 0, 0.95),
+    0 12px 30px -10px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.9);
   animation: panel-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -296,14 +303,13 @@ body {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.38) 0%,
-    rgba(255, 255, 255, 0.07) 34%,
-    transparent 60%
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.04) 22%,
+    transparent 45%
   );
 }
 
-/* Bottom tab: a rounded glass handle fused to the panel's bottom edge,
-   echoing the speech-bubble shape from the reference. */
+/* Bottom tab: fused to panel's bottom edge with smooth black transition */
 .glass-panel::after {
   content: "";
   position: absolute;
@@ -313,17 +319,18 @@ body {
   width: 7.5rem;
   height: 26px;
   border-radius: 9999px;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom-color: #000000;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.36) 100%
+    rgba(20, 20, 20, 0.85) 0%,
+    #000000 100%
   );
   -webkit-backdrop-filter: blur(18px) saturate(170%);
   backdrop-filter: blur(18px) saturate(170%);
   box-shadow:
-    0 10px 24px -10px rgba(2, 6, 23, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 10px 24px -10px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   pointer-events: none;
 }
 
@@ -349,17 +356,17 @@ body {
   height: 3rem;
   padding: 0 1rem;
   border-radius: 1.15rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  backdrop-filter: blur(6px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
   color: var(--glass-ink);
   font-size: 1rem;
   line-height: 1;
   outline: none;
   box-shadow:
-    inset 0 1px 2px rgba(2, 6, 23, 0.06),
-    0 1px 0 rgba(255, 255, 255, 0.4);
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.08);
   transition:
     border-color 0.25s ease,
     box-shadow 0.3s ease,
@@ -367,23 +374,23 @@ body {
 }
 
 .glass-input::placeholder {
-  color: rgba(71, 85, 105, 0.75);
+  color: rgba(255, 255, 255, 0.38);
 }
 
 .glass-input:hover {
-  background: rgba(255, 255, 255, 0.68);
-  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* Focus = light refraction: soft glowing cyan border + halo. */
 .glass-input:focus,
 .glass-input:focus-visible {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(103, 232, 249, 0.9);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(56, 189, 248, 0.9);
   box-shadow:
     0 0 0 4px var(--glass-accent-soft),
-    0 0 18px rgba(34, 211, 238, 0.45),
-    inset 0 1px 2px rgba(2, 6, 23, 0.05);
+    0 0 18px rgba(56, 189, 248, 0.45),
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .glass-input[aria-invalid="true"] {
@@ -448,8 +455,8 @@ body {
 }
 
 .glass-eye:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.8);
-  color: var(--glass-ink);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 
 .glass-eye:focus-visible {
@@ -536,25 +543,23 @@ body {
 
 /* Ghost variant: light frosted glass with dark ink (secondary actions). */
 .glass-button--ghost {
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(255, 255, 255, 0.42) 100%
-  );
+  background: rgba(255, 255, 255, 0.08);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
-  color: var(--glass-ink);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
-    0 10px 24px -12px rgba(2, 6, 23, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    0 10px 24px -12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glass-button--ghost:hover:not(:disabled) {
-  filter: brightness(1.06);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  filter: brightness(1.08);
   box-shadow:
-    0 12px 28px -12px rgba(2, 6, 23, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 12px 28px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .glass-button--full {
@@ -566,15 +571,15 @@ body {
 /* Frosted info tile (dashboard). */
 .glass-tile {
   border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.32) 100%
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(0, 0, 0, 0.75) 100%
   );
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 8px 20px -12px rgba(2, 6, 23, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 12px 28px -10px rgba(0, 0, 0, 0.75);
 }
 
 /* Brand mark: small gradient squircle with a lit edge. */
@@ -617,16 +622,16 @@ body {
   gap: 0.625rem;
   padding: 0.875rem 1rem;
   border-radius: 1rem;
-  border: 1px solid rgba(190, 18, 60, 0.35);
-  background: rgba(254, 226, 226, 0.78);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(127, 29, 29, 0.45);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(10px) saturate(140%);
-  color: var(--glass-danger);
+  color: #fecaca;
   font-size: 0.9375rem;
   font-weight: 500;
   box-shadow:
-    0 10px 24px -14px rgba(159, 18, 57, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 10px 24px -14px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Inline field error text. */

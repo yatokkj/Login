@@ -4,12 +4,6 @@
 // Decorative only: hidden from assistive technology.
 export function LiquidBackground() {
   return (
-    <div className="liquid-scene" aria-hidden="true">
-      <div className="liquid-blob liquid-blob--blue" />
-      <div className="liquid-blob liquid-blob--cyan" />
-      <div className="liquid-blob liquid-blob--purple" />
-      <div className="liquid-blob liquid-blob--green" />
-      <div className="liquid-vignette" />
-    </div>
+    <div className="liquid-scene" aria-hidden="true" />
   );
 }
